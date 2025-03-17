@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Stylish Navbar</title>
+    <style>
+      .navbar-custom {
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+      }
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+      }
+      .nav-link {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #fff !important;
+        transition: all 0.3s ease-in-out;
+      }
+      .nav-link:hover {
+        color: #ffdd57 !important;
+        transform: scale(1.1);
+      }
+      .navbar-toggler {
+        border: none;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+      .navbar-toggler-icon {
+        filter: invert(1);
+      }
+      .form-control {
+        border-radius: 20px;
+      }
+      .btn-outline-success {
+        color: #fff;
+        border-color: #fff;
+        transition: 0.3s ease-in-out;
+      }
+      .btn-outline-success:hover {
+        background-color: #ffdd57;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-3">
+      <nav class="navbar navbar-expand-lg navbar-custom px-3">
+        <a class="navbar-brand" href="#">DG</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'MusiciansDirectory'%}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'musician_form'%}">Musician</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'add_album'%}">ADD Album</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'album_view'%}">Album Model</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    </div>
+
+    {% block content %}
+    <div class="container text-center mt-5">
+      <h1>Hello, world!</h1>
+    </div>
+    {% endblock content %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

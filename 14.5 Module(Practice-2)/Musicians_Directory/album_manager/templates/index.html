@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="glass-card p-5 rounded-4">
+        <h2 class="text-center mb-4 text-white fw-bold">🎶 Select Album 🎶</h2>
+        
+        <form method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label for="album_select" class="form-label text-white fw-semibold">Choose an Album:</label>
+                <select name="album" id="album_select" class="form-select custom-select">
+                    {% for album in album_sets %}
+                        <option value="{{ album.id }}">{{ album.album_name }} - {{ album.release_date|date:"d M, Y h:i A" }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-4">
+                {{ musician_album|crispy }}
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn-glass px-5 py-3">🚀 Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+
+    body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        width: 450px;
+        text-align: center;
+        padding: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-glass {
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 50px;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-glass:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .custom-select {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 12px;
+        color: white;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .custom-select:focus {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+</style>
+
+{% endblock content %}

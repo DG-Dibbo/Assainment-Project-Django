@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg p-5 rounded-4 bg-white border-0">
+          <h2 class="text-center mb-4 text-primary fw-bold">Edit Album</h2>
+
+          <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group mb-4">
+              <label for="album_select" class="form-label fs-5 fw-semibold text-muted">Choose an Album:</label>
+              <select name="album" id="album_select" class="form-select py-3 border-light shadow-sm">
+                {% for album in album_sets %}
+                  <option value="{{ album.id }}" {% if album.id == edit_form.instance.id %}selected{% endif %}>
+                    {{ album.album_name }} - {{ album.release_date|date:"d M, Y h:i A" }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="form-group mb-4">
+              {{ edit_form|crispy }}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold fs-5 shadow-sm hover-shadow-lg transition-all">
+              Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .card {
+      background: linear-gradient(to right, #f7f7f7, #ffffff);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 1.5rem;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      transition: all 0.3s ease;
+      border-radius: 0.75rem;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .form-select {
+      border-radius: 0.375rem;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .form-select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+    .fs-5 {
+      font-size: 1.25rem;
+    }
+
+    .shadow-sm {
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .hover-shadow-lg:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .transition-all {
+      transition: all 0.3s ease;
+    }
+
+    .form-label {
+      font-size: 1.1rem;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  </style>
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-white fw-bold">🎵 Musicians & Albums 🎵</h2>
+    
+    <div class="table-responsive glass-table p-3 rounded-4">
+        <table class="table text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Musician Name</th>
+                    <th>Email</th>
+                    <th>Album Rating</th>
+                    <th>Instrument Type</th>
+                    <th>Album Name</th>
+                    <th>Release Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            {% for album_view in std %}
+            <tbody>
+                <tr class="glass-row {% if album_view.Rating == '5' %}table-success{% endif %}">
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <a href="{% url 'musician_detail_view' album_view.id %}" class="fw-bold text-decoration-none">
+                            {{ album_view.name }}
+                        </a>
+                    </td>
+                    <td>{{ album_view.email }}</td>
+                    <td>
+                        <span class="badge rating-badge rating-{{ album_view.Rating }}">
+                            {{ album_view.Rating }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if album_view.instrument.all %}
+                            {% for musician in album_view.instrument.all %}
+                                <span class="badge bg-info">{{ musician.instrument }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-muted">No instrument assigned</span>
+                        {% endif %}
+                    </td>
+                    <td class="fw-bold">{{ album_view.album_name }}</td>
+                    <td>{{ album_view.release_date|date:"d M, Y" }}</td>
+                    <td>
+                        <a href="{% url 'edit_album' album_view.id %}" class="btn-glass btn-sm">✏ Edit</a>
+                        <a href="{% url 'delete_album' album_view.id %}" class="btn-glass btn-sm danger">🗑 Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .glass-table {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        overflow-x: auto;
+    }
+
+    .table {
+        color: white;
+    }
+
+    .glass-row {
+        background: rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .glass-row:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.02);
+    }
+
+    .rating-5 { background: #28a745 !important; }
+    .rating-4 { background: #007bff !important; }
+    .rating-3 { background: #ffc107 !important; color: #000; }
+    .rating-2 { background: #dc3545 !important; }
+    .rating-1 { background: #6c757d !important; }
+
+    .btn-glass {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        padding: 8px 15px;
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-glass:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: scale(1.1);
+    }
+
+    .btn-glass.danger {
+        background: rgba(220, 53, 69, 0.7);
+    }
+
+    .btn-glass.danger:hover {
+        background: rgba(220, 53, 69, 1);
+    }
+</style>
+
+{% endblock content %}
