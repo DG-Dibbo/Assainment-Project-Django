@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background: linear-gradient(135deg, #1e1e1e, #3a3a3a);">
+    <div class="glassmorphism p-4 rounded-4 shadow-lg">
+        <h2 class="text-center mb-4 text-white">🔧 Edit Task</h2>
+        <form method="post" class="p-3">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form|crispy }}
+            </div>
+            <button type="submit" class="btn neon-btn w-100 fw-bold">🚀 Update Task</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: #fff;
+    }
+    .glassmorphism {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 20px;
+        max-width: 450px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    .neon-btn {
+        background: linear-gradient(90deg, #ff6ec4, #7873f5);
+        border: none;
+        padding: 12px;
+        font-size: 18px;
+        color: white;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+    }
+    .neon-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(255, 110, 196, 0.8), 0 0 25px rgba(120, 115, 245, 0.8);
+    }
+</style>
+
+{% endblock %}
